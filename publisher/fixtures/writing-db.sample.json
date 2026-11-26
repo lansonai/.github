@@ -1,0 +1,49 @@
+{
+  "pages": [
+    {
+      "id": "page-blog-ready",
+      "properties": {
+        "标题": { "type": "title", "title": [{ "plain_text": "Why Live Captions Still Flicker" }] },
+        "状态": { "type": "status", "status": { "name": "待发布" } },
+        "文章类型": { "type": "select", "select": { "name": "技术文章" } },
+        "计划发布日期": { "type": "date", "date": { "start": "2026-11-20" } },
+        "分发渠道": { "type": "multi_select", "multi_select": [{ "name": "Blog" }, { "name": "X" }, { "name": "Hacker News" }] },
+        "自动发布": { "type": "checkbox", "checkbox": true }
+      },
+      "body": "Captions flicker because most engines rewrite the last line every time a new hypothesis arrives. Fixing that needs a rendering contract, not a better model. We lock finalized segments in place and only append.\n\nThe result is fewer regressive eye movements and a transcript people can actually read while speaking. This paragraph exists so the thread splitter has enough text to produce more than one tweet."
+    },
+    {
+      "id": "page-not-due",
+      "properties": {
+        "标题": { "type": "title", "title": [{ "plain_text": "Scheduled for next month" }] },
+        "状态": { "type": "status", "status": { "name": "待发布" } },
+        "计划发布日期": { "type": "date", "date": { "start": "2026-12-20" } },
+        "分发渠道": { "type": "multi_select", "multi_select": [{ "name": "Blog" }] },
+        "自动发布": { "type": "checkbox", "checkbox": true }
+      },
+      "body": "Not due yet."
+    },
+    {
+      "id": "page-manual-only",
+      "properties": {
+        "标题": { "type": "title", "title": [{ "plain_text": "草稿：语音输入法的取舍" }] },
+        "状态": { "type": "status", "status": { "name": "构思中" } },
+        "计划发布日期": { "type": "date", "date": { "start": "2026-11-01" } },
+        "分发渠道": { "type": "multi_select", "multi_select": [{ "name": "微信公众号" }] },
+        "自动发布": { "type": "checkbox", "checkbox": true }
+      },
+      "body": "Still a draft, status is 构思中 so it must not ship."
+    },
+    {
+      "id": "page-no-auto",
+      "properties": {
+        "标题": { "type": "title", "title": [{ "plain_text": "Published by hand" }] },
+        "状态": { "type": "status", "status": { "name": "待发布" } },
+        "计划发布日期": { "type": "date", "date": { "start": "2026-11-01" } },
+        "分发渠道": { "type": "multi_select", "multi_select": [{ "name": "LinkedIn" }] },
+        "自动发布": { "type": "checkbox", "checkbox": false }
+      },
+      "body": "Belongs to a human."
+    }
+  ]
+}
