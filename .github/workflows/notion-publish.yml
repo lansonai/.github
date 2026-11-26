@@ -1,0 +1,47 @@
+name: notion-publish
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Only print the plan, write nothing
+        type: boolean
+        default: true
+
+concurrency:
+  group: notion-publish
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Unit tests
+        run: node --test publisher/test.mjs
+
+      - name: Pull the content database
+        run: node publisher/notion-fetch.mjs publisher/fixtures/writing-db.live.json
+
+      - name: Plan
+        run: node publisher/notion-publish.mjs --database publisher/fixtures/writing-db.live.json
+
+      - name: Render drafts
+        if: ${{ github.event_name == 'schedule' && inputs.dry_run != true }}
+        run: node publisher/notion-publish.mjs --database publisher/fixtures/writing-db.live.json --write
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publish-plan
+          path: publisher/out
+          if-no-files-found: warn
